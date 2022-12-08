@@ -12,6 +12,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
+    "@artsy/auto-config": "^1.2.0",
     "@types/jest": "^29.2.4",
     "@types/md5": "^2.3.2",
     "@types/qs": "^6.9.7",
