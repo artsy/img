@@ -1,6 +1,12 @@
 import { configure } from "../strategies";
 
 describe("strategies", () => {
+  it("only returns the services that are configured", () => {
+    const services = configure({ gemini: { endpoint: "https://example.com" } });
+
+    expect(Object.keys(services)).toEqual(["gemini"]);
+  });
+
   const { gemini, imgix, lambda } = configure({
     imgix: {
       endpoint: "https://example.imgix.net",

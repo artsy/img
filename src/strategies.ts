@@ -11,18 +11,15 @@ type Service = typeof SERVICES[number];
 
 type Mode = typeof MODES[number];
 
-/**
- * All endpoints should *not* have trailing slashes
- */
 type Config = {
-  gemini: {
+  gemini?: {
     endpoint: string;
   };
-  imgix: {
+  imgix?: {
     endpoint: string;
     token: string;
   };
-  lambda: {
+  lambda?: {
     endpoint: string;
     sources: {
       source: string;
@@ -65,11 +62,15 @@ export const validate = (mode: Mode, { width, height }: Options) => {
   return true;
 };
 
-export const configure = (config: Config) => {
-  const strategies: {
-    [key in Service]: Strategy;
-  } = {
-    gemini: {
+/**
+ * Returns a list of configured services.
+ * All endpoints should *not* have trailing slashes.
+ */
+export const configure = <T extends Config>(config: T) => {
+  const strategies = {} as Record<keyof T, Strategy>;
+
+  if (config.gemini) {
+    strategies.gemini = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
 
@@ -107,11 +108,13 @@ export const configure = (config: Config) => {
           sort: (a, b) => a.localeCompare(b),
         });
 
-        return `${config.gemini.endpoint}?${query}`;
+        return `${config.gemini!.endpoint}?${query}`;
       },
-    },
+    };
+  }
 
-    imgix: {
+  if (config.imgix) {
+    strategies.imgix = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
 
@@ -125,22 +128,21 @@ export const configure = (config: Config) => {
 
         const path = `/${encodeURIComponent(src)}`;
         const query = `?${stringify(params)}`;
-        const signature = md5(config.imgix.token + path + query);
+        const signature = md5(config.imgix!.token + path + query);
 
-        return `${config.imgix.endpoint}${path}${query}&s=${signature}`;
+        return `${config.imgix!.endpoint}${path}${query}&s=${signature}`;
       },
-    },
+    };
+  }
 
-    lambda: {
+  if (config.lambda) {
+    strategies.lambda = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
-
-        const source = config.lambda.sources.find((source) => {
+        const source = config.lambda!.sources.find((source) => {
           return src.startsWith(source.source);
         });
-
         if (!source) return src;
-
         const params = {
           bucket: source.bucket,
           key: src.replace(`${source.source}/`, ""),
@@ -155,13 +157,11 @@ export const configure = (config: Config) => {
             rotate: null,
           },
         };
-
         const encoded = Buffer.from(JSON.stringify(params)).toString("base64");
-
-        return `${config.lambda.endpoint}/${encoded}`;
+        return `${config.lambda!.endpoint}/${encoded}`;
       },
-    },
-  };
+    };
+  }
 
   return strategies;
 };
