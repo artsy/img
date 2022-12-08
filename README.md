@@ -1,6 +1,6 @@
 # @artsy/img
 
-### Meta 
+#### Meta 
 - TODO 
 
 ## Usage
