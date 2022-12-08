@@ -1,7 +1,3 @@
 {
-  "extends": "@artsy",
-  "author": {
-    "name": "artsyit",
-    "email": "it@artsymail.com"
-  }
+  "extends": "@artsy"
 }
