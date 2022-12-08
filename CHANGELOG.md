@@ -1,3 +1,15 @@
+# v0.1.0 (Thu Dec 08 2022)
+
+#### 🚀  Enhancement
+
+- feat: optional services [#7](https://github.com/artsy/img/pull/7) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v0.0.1 (Thu Dec 08 2022)
 
 #### 🐛  Bug Fix
