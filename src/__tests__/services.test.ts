@@ -1,4 +1,4 @@
-import { configure } from "../strategies";
+import { configure } from "../services";
 
 describe("strategies", () => {
   it("only returns the services that are configured", () => {

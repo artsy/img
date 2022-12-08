@@ -7,8 +7,6 @@ export const MODES = ["resize", "crop"] as const;
 
 export const DEFAULT_QUALITY = 80;
 
-type Service = typeof SERVICES[number];
-
 type Mode = typeof MODES[number];
 
 type Config = {
@@ -67,10 +65,10 @@ export const validate = (mode: Mode, { width, height }: Options) => {
  * All endpoints should *not* have trailing slashes.
  */
 export const configure = <T extends Config>(config: T) => {
-  const strategies = {} as Record<keyof T, Strategy>;
+  const services = {} as Record<keyof T, Strategy>;
 
   if (config.gemini) {
-    strategies.gemini = {
+    services.gemini = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
 
@@ -114,7 +112,7 @@ export const configure = <T extends Config>(config: T) => {
   }
 
   if (config.imgix) {
-    strategies.imgix = {
+    services.imgix = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
 
@@ -136,7 +134,7 @@ export const configure = <T extends Config>(config: T) => {
   }
 
   if (config.lambda) {
-    strategies.lambda = {
+    services.lambda = {
       exec: (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
         if (!validate(mode, { width, height })) return src;
         const source = config.lambda!.sources.find((source) => {
@@ -163,5 +161,5 @@ export const configure = <T extends Config>(config: T) => {
     };
   }
 
-  return strategies;
+  return services;
 };
