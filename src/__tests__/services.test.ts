@@ -1,5 +1,8 @@
 import { configure } from "../services";
 
+const EXAMPLE_SRC =
+  "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg";
+
 describe("strategies", () => {
   it("only returns the services that are configured", () => {
     const services = configure({ gemini: { endpoint: "https://example.com" } });
@@ -28,23 +31,34 @@ describe("strategies", () => {
 
   describe("gemini", () => {
     it("returns a resized url", () => {
-      const img = gemini.exec(
-        "resize",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
-      );
+      const img = gemini.exec("resize", EXAMPLE_SRC, {
+        width: 200,
+        height: 200,
+      });
 
       expect(img).toEqual(
         "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
       );
     });
 
-    it("returns a cropped url", () => {
-      const img = gemini.exec(
-        "crop",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
+    it("returns a resized url with only width specified", () => {
+      const img = gemini.exec("resize", EXAMPLE_SRC, { width: 200 });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?quality=80&resize_to=width&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
       );
+    });
+
+    it("returns a resized url with only height specified", () => {
+      const img = gemini.exec("resize", EXAMPLE_SRC, { height: 200 });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=height&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg"
+      );
+    });
+
+    it("returns a cropped url", () => {
+      const img = gemini.exec("crop", EXAMPLE_SRC, { width: 200, height: 200 });
 
       expect(img).toEqual(
         "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
@@ -54,11 +68,10 @@ describe("strategies", () => {
 
   describe("imgix", () => {
     it("returns a resized url", () => {
-      const img = imgix.exec(
-        "resize",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
-      );
+      const img = imgix.exec("resize", EXAMPLE_SRC, {
+        width: 200,
+        height: 200,
+      });
 
       expect(img).toEqual(
         "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?auto=format&fit=clip&height=200&quality=80&width=200&s=1d931e11fbfb846dbe5f1ffa895017d9"
@@ -66,11 +79,7 @@ describe("strategies", () => {
     });
 
     it("returns a cropped url", () => {
-      const img = imgix.exec(
-        "crop",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
-      );
+      const img = imgix.exec("crop", EXAMPLE_SRC, { width: 200, height: 200 });
 
       expect(img).toEqual(
         "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?auto=format&fit=crop&height=200&quality=80&width=200&s=fd511845304eb4a5cad016b52aee939b"
@@ -80,11 +89,10 @@ describe("strategies", () => {
 
   describe("lambda", () => {
     it("returns a resized url", () => {
-      const img = lambda.exec(
-        "resize",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
-      );
+      const img = lambda.exec("resize", EXAMPLE_SRC, {
+        width: 200,
+        height: 200,
+      });
 
       expect(img).toEqual(
         "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS1hc3NldHMiLCJrZXkiOiJNRkZQWHZwSlNvR3pnZ1U4enVqd0J3L25vcm1hbGl6ZWQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyMDAsImhlaWdodCI6MjAwLCJmaXQiOiJpbnNpZGUifSwid2VicCI6eyJxdWFsaXR5Ijo4MH0sImpwZWciOnsicXVhbGl0eSI6ODB9LCJyb3RhdGUiOm51bGx9fQ=="
@@ -92,11 +100,7 @@ describe("strategies", () => {
     });
 
     it("returns a cropped url", () => {
-      const img = lambda.exec(
-        "crop",
-        "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg",
-        { width: 200, height: 200 }
-      );
+      const img = lambda.exec("crop", EXAMPLE_SRC, { width: 200, height: 200 });
 
       expect(img).toEqual(
         "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS1hc3NldHMiLCJrZXkiOiJNRkZQWHZwSlNvR3pnZ1U4enVqd0J3L25vcm1hbGl6ZWQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyMDAsImhlaWdodCI6MjAwLCJmaXQiOiJjb3ZlciJ9LCJ3ZWJwIjp7InF1YWxpdHkiOjgwfSwianBlZyI6eyJxdWFsaXR5Ijo4MH0sInJvdGF0ZSI6bnVsbH19"

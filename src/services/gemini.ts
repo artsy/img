@@ -19,10 +19,12 @@ export const gemini = (config: Gemini): Exec => {
       case "resize": {
         if (width && !height) {
           resizeTo = "width";
+          break;
         }
 
         if (height && !width) {
           resizeTo = "height";
+          break;
         }
 
         resizeTo = "fit";
