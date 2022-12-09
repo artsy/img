@@ -1,16 +1,18 @@
-import { configure } from "../services";
+import { configureImageServices } from "../services";
 
 const EXAMPLE_SRC =
   "https://d32dm0rphc51dk.cloudfront.net/MFFPXvpJSoGzggU8zujwBw/normalized.jpg";
 
 describe("strategies", () => {
   it("only returns the services that are configured", () => {
-    const services = configure({ gemini: { endpoint: "https://example.com" } });
+    const services = configureImageServices({
+      gemini: { endpoint: "https://example.com" },
+    });
 
     expect(Object.keys(services)).toEqual(["gemini"]);
   });
 
-  const { gemini, imgix, lambda } = configure({
+  const { gemini, imgix, lambda } = configureImageServices({
     imgix: {
       endpoint: "https://example.imgix.net",
       token: "secret",

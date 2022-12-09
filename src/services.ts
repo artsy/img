@@ -2,31 +2,36 @@ import { Gemini, gemini } from "./services/gemini";
 import { imgix, Imgix } from "./services/imgix";
 import { lambda, Lambda } from "./services/lambda";
 
-export const SERVICES = ["gemini", "imgix", "lambda"] as const;
+export const RESIZE_MODES = ["resize", "crop"] as const;
 
-export const MODES = ["resize", "crop"] as const;
+export const DEFAULT_IMG_QUALITY = 80;
 
-export const DEFAULT_QUALITY = 80;
+export type ResizeMode = typeof RESIZE_MODES[number];
 
-export type Mode = typeof MODES[number];
-
-export type Config = {
-  gemini?: Gemini;
-  imgix?: Imgix;
-  lambda?: Lambda;
-};
-
-export type Options = {
+export type ResizeOptions = {
   width?: number;
   height?: number;
   quality?: number;
 };
 
-export type Exec = (mode: Mode, src: string, options: Options) => string;
+export type ServiceConfigurations = {
+  gemini?: Gemini;
+  imgix?: Imgix;
+  lambda?: Lambda;
+};
 
-export type Service = { exec: Exec };
+export type ResizeExec = (
+  mode: ResizeMode,
+  src: string,
+  options: ResizeOptions
+) => string;
 
-export const validate = (mode: Mode, { width, height }: Options) => {
+export type ImageService = { exec: ResizeExec };
+
+export const validateResizeOptions = (
+  mode: ResizeMode,
+  { width, height }: ResizeOptions
+) => {
   if (mode === "crop" && (!width || !height)) {
     console.warn("`crop`requires both `width` and `height`");
     return false;
@@ -54,8 +59,10 @@ export const validate = (mode: Mode, { width, height }: Options) => {
  * Returns a list of configured services.
  * All endpoints should *not* have trailing slashes.
  */
-export const configure = <T extends Config>(config: T) => {
-  const services = {} as Record<keyof T, Service>;
+export const configureImageServices = <T extends ServiceConfigurations>(
+  config: T
+) => {
+  const services = {} as Record<keyof T, ImageService>;
 
   if (config.gemini) {
     services.gemini = { exec: gemini(config.gemini) };
