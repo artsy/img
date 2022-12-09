@@ -1,3 +1,15 @@
+# v0.1.1 (Fri Dec 09 2022)
+
+#### 🐛  Bug Fix
+
+- fix: removes qs dependency; fixes gemini width/height modes [#8](https://github.com/artsy/img/pull/8) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v0.1.0 (Thu Dec 08 2022)
 
 #### 🚀  Enhancement
