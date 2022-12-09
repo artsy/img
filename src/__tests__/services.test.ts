@@ -61,7 +61,7 @@ describe("strategies", () => {
       );
 
       expect(img).toEqual(
-        "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?fit=clip&height=200&width=200&quality=80&auto=format&s=5cce72615e263db4c22e027d2ae73cd1"
+        "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?auto=format&fit=clip&height=200&quality=80&width=200&s=1d931e11fbfb846dbe5f1ffa895017d9"
       );
     });
 
@@ -73,7 +73,7 @@ describe("strategies", () => {
       );
 
       expect(img).toEqual(
-        "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?fit=crop&height=200&width=200&quality=80&auto=format&s=3fd908feecc9fecb39aebe909071c362"
+        "https://example.imgix.net/https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg?auto=format&fit=crop&height=200&quality=80&width=200&s=fd511845304eb4a5cad016b52aee939b"
       );
     });
   });

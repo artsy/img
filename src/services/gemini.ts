@@ -1,5 +1,5 @@
-import { stringify } from "qs";
 import { DEFAULT_QUALITY, Exec, validate } from "../services";
+import { stringify } from "../utils/stringify";
 
 export type Gemini = {
   endpoint: string;
@@ -37,11 +37,7 @@ export const gemini = (config: Gemini): Exec => {
       quality,
     };
 
-    const query = stringify(params, {
-      arrayFormat: "brackets",
-      skipNulls: true,
-      sort: (a, b) => a.localeCompare(b),
-    });
+    const query = stringify(params);
 
     return `${config.endpoint}?${query}`;
   };
