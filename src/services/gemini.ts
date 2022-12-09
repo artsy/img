@@ -14,6 +14,7 @@ export const gemini = (config: Gemini): Exec => {
     switch (mode) {
       case "crop": {
         resizeTo = "fill";
+        break;
       }
 
       case "resize": {

@@ -61,7 +61,7 @@ describe("strategies", () => {
       const img = gemini.exec("crop", EXAMPLE_SRC, { width: 200, height: 200 });
 
       expect(img).toEqual(
-        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
       );
     });
   });
