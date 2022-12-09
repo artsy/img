@@ -1,5 +1,9 @@
 import md5 from "md5";
-import { DEFAULT_QUALITY, Exec, validate } from "../services";
+import {
+  DEFAULT_IMG_QUALITY,
+  ResizeExec,
+  validateResizeOptions,
+} from "../services";
 import { stringify } from "../utils/stringify";
 
 export type Imgix = {
@@ -7,9 +11,9 @@ export type Imgix = {
   token: string;
 };
 
-export const imgix = (config: Imgix): Exec => {
-  return (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
-    if (!validate(mode, { width, height })) return src;
+export const imgix = (config: Imgix): ResizeExec => {
+  return (mode, src, { width, height, quality = DEFAULT_IMG_QUALITY }) => {
+    if (!validateResizeOptions(mode, { width, height })) return src;
 
     const params = {
       fit: { crop: "crop", resize: "clip" }[mode],

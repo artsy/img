@@ -1,4 +1,8 @@
-import { DEFAULT_QUALITY, Exec, validate } from "../services";
+import {
+  DEFAULT_IMG_QUALITY,
+  ResizeExec,
+  validateResizeOptions,
+} from "../services";
 
 export type Lambda = {
   endpoint: string;
@@ -8,9 +12,9 @@ export type Lambda = {
   }[];
 };
 
-export const lambda = (config: Lambda): Exec => {
-  return (mode, src, { width, height, quality = DEFAULT_QUALITY }) => {
-    if (!validate(mode, { width, height })) return src;
+export const lambda = (config: Lambda): ResizeExec => {
+  return (mode, src, { width, height, quality = DEFAULT_IMG_QUALITY }) => {
+    if (!validateResizeOptions(mode, { width, height })) return src;
 
     const source = config.sources.find((source) => {
       return src.startsWith(source.source);
