@@ -1,3 +1,15 @@
+# v0.1.2 (Fri Dec 09 2022)
+
+#### 🐛  Bug Fix
+
+- fix(gemini): fixes crop url mode [#9](https://github.com/artsy/img/pull/9) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v0.1.1 (Fri Dec 09 2022)
 
 #### 🐛  Bug Fix
