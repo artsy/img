@@ -1,3 +1,15 @@
+# v1.0.0 (Fri Dec 09 2022)
+
+#### 💥  Breaking Change
+
+- refactor: renames functions and types to be less generic [#10](https://github.com/artsy/img/pull/10) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v0.1.2 (Fri Dec 09 2022)
 
 #### 🐛  Bug Fix
