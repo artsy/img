@@ -1,6 +1,6 @@
 import md5 from "md5";
-import { stringify } from "qs";
 import { DEFAULT_QUALITY, Exec, validate } from "../services";
+import { stringify } from "../utils/stringify";
 
 export type Imgix = {
   endpoint: string;
