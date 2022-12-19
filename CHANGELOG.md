@@ -1,3 +1,15 @@
+# v1.0.1 (Mon Dec 19 2022)
+
+#### 🐛  Bug Fix
+
+- fix(lambda): supports url encoded keys [#11](https://github.com/artsy/img/pull/11) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v1.0.0 (Fri Dec 09 2022)
 
 #### 💥  Breaking Change
