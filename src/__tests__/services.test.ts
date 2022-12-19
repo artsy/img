@@ -27,6 +27,10 @@ describe("strategies", () => {
           source: "https://d32dm0rphc51dk.cloudfront.net",
           bucket: "artsy-media-assets",
         },
+        {
+          source: "https://artsy-media-uploads.s3.amazonaws.com",
+          bucket: "artsy-media-uploads",
+        },
       ],
     },
   });
@@ -106,6 +110,18 @@ describe("strategies", () => {
 
       expect(img).toEqual(
         "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS1hc3NldHMiLCJrZXkiOiJNRkZQWHZwSlNvR3pnZ1U4enVqd0J3L25vcm1hbGl6ZWQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoyMDAsImhlaWdodCI6MjAwLCJmaXQiOiJjb3ZlciJ9LCJ3ZWJwIjp7InF1YWxpdHkiOjgwfSwianBlZyI6eyJxdWFsaXR5Ijo4MH0sInJvdGF0ZSI6bnVsbH19"
+      );
+    });
+
+    it("decodes any encoded keys", () => {
+      const img = lambda.exec(
+        "crop",
+        "https://artsy-media-uploads.s3.amazonaws.com/MJVDlZdpah8pU2cASanWbQ%2FAPB0048_A_phc3cc.jpeg",
+        { width: 200, height: 200 }
+      );
+
+      expect(img).toEqual(
+        "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS11cGxvYWRzIiwia2V5IjoiTUpWRGxaZHBhaDhwVTJjQVNhbldiUS9BUEIwMDQ4X0FfcGhjM2NjLmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMCwiaGVpZ2h0IjoyMDAsImZpdCI6ImNvdmVyIn0sIndlYnAiOnsicXVhbGl0eSI6ODB9LCJqcGVnIjp7InF1YWxpdHkiOjgwfSwicm90YXRlIjpudWxsfX0="
       );
     });
   });
