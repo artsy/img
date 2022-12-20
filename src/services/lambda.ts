@@ -24,7 +24,7 @@ export const lambda = (config: Lambda): ResizeExec => {
 
     const key = decodeURIComponent(
       src.replace(`${source.source}/`, "")
-    ).replace("+", " ");
+    ).replace(/\+/g, " ");
 
     const params = {
       bucket: source.bucket,
