@@ -124,5 +124,17 @@ describe("strategies", () => {
         "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS11cGxvYWRzIiwia2V5IjoiTUpWRGxaZHBhaDhwVTJjQVNhbldiUS9BUEIwMDQ4X0FfcGhjM2NjLmpwZWciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjIwMCwiaGVpZ2h0IjoyMDAsImZpdCI6ImNvdmVyIn0sIndlYnAiOnsicXVhbGl0eSI6ODB9LCJqcGVnIjp7InF1YWxpdHkiOjgwfSwicm90YXRlIjpudWxsfX0="
       );
     });
+
+    it('decodes any encoded keys with a "+"', () => {
+      const img = lambda.exec(
+        "crop",
+        "https://artsy-media-uploads.s3.amazonaws.com/IxeU8_kDftXzCfFdM36fWA/MAG_Textile+Artists.jpg",
+        { width: 200, height: 200 }
+      );
+
+      expect(img).toEqual(
+        "https://d1j88w5k23s1nr.cloudfront.net/eyJidWNrZXQiOiJhcnRzeS1tZWRpYS11cGxvYWRzIiwia2V5IjoiSXhlVThfa0RmdFh6Q2ZGZE0zNmZXQS9NQUdfVGV4dGlsZSBBcnRpc3RzLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6MjAwLCJoZWlnaHQiOjIwMCwiZml0IjoiY292ZXIifSwid2VicCI6eyJxdWFsaXR5Ijo4MH0sImpwZWciOnsicXVhbGl0eSI6ODB9LCJyb3RhdGUiOm51bGx9fQ=="
+      );
+    });
   });
 });

@@ -22,9 +22,13 @@ export const lambda = (config: Lambda): ResizeExec => {
 
     if (!source) return src;
 
+    const key = decodeURIComponent(
+      src.replace(`${source.source}/`, "")
+    ).replace("+", " ");
+
     const params = {
       bucket: source.bucket,
-      key: decodeURIComponent(src.replace(`${source.source}/`, "")),
+      key,
       edits: {
         resize: {
           width,
