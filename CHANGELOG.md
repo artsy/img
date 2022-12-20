@@ -1,3 +1,15 @@
+# v1.0.3 (Tue Dec 20 2022)
+
+#### 🐛  Bug Fix
+
+- fix(lambda): fixes replacement [#13](https://github.com/artsy/img/pull/13) ([@dzucconi](https://github.com/dzucconi))
+
+#### Authors: 1
+
+- Damon ([@dzucconi](https://github.com/dzucconi))
+
+---
+
 # v1.0.2 (Tue Dec 20 2022)
 
 #### 🐛  Bug Fix
