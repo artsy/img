@@ -70,6 +70,77 @@ describe("strategies", () => {
         "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fill&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FMFFPXvpJSoGzggU8zujwBw%2Fnormalized.jpg&width=200"
       );
     });
+
+    it("encodes raw URLs with spaces and special characters", () => {
+      const srcWithSpaces = "https://example.com/file name.jpg";
+      const img = gemini.exec("resize", srcWithSpaces, {
+        width: 200,
+        height: 200,
+      });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fexample.com%2Ffile%20name.jpg&width=200"
+      );
+
+      // Verify the src parameter can be decoded correctly
+      const urlParams = new URLSearchParams(img.split("?")[1]);
+      expect(urlParams.get("src")).toEqual(srcWithSpaces);
+    });
+
+    it("does not double-encode already encoded URLs", () => {
+      const alreadyEncodedSrc = "https://example.com/file%20name%2Bversion.jpg";
+      const img = gemini.exec("resize", alreadyEncodedSrc, {
+        width: 200,
+        height: 200,
+      });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fexample.com%2Ffile%20name%2Bversion.jpg&width=200"
+      );
+
+      // Verify no double-encoding occurred
+      expect(img).not.toContain("%2520"); // No double-encoded spaces
+      expect(img).not.toContain("%252B"); // No double-encoded plus signs
+
+      // Verify URL structure is properly encoded for parameter use
+      expect(img).toContain("src=https%3A%2F%2F"); // URL structure encoded
+    });
+
+    it("handles URLs with parentheses correctly", () => {
+      const srcWithParens = "https://example.com/file(name).jpg";
+      const img = gemini.exec("resize", srcWithParens, {
+        width: 200,
+        height: 200,
+      });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fexample.com%2Ffile(name).jpg&width=200"
+      );
+
+      // Verify the src parameter can be decoded correctly
+      const urlParams = new URLSearchParams(img.split("?")[1]);
+      expect(urlParams.get("src")).toEqual(srcWithParens);
+    });
+
+    it("handles real-world S3 URLs with encoded characters", () => {
+      const s3EncodedSrc =
+        "https://artsy-media-uploads.s3.amazonaws.com/path%2Fto%2Ffile%20name.jpg";
+      const img = gemini.exec("resize", s3EncodedSrc, {
+        width: 200,
+        height: 200,
+      });
+
+      expect(img).toEqual(
+        "https://d7hftxdivxxvm.cloudfront.net?height=200&quality=80&resize_to=fit&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2Fpath%2Fto%2Ffile%20name.jpg&width=200"
+      );
+
+      // Verify no double-encoding of forward slashes or spaces
+      expect(img).not.toContain("%252F"); // No double-encoded forward slashes
+      expect(img).not.toContain("%2520"); // No double-encoded spaces
+
+      // Verify URL structure is properly encoded for parameter use
+      expect(img).toContain("src=https%3A%2F%2F"); // URL structure encoded
+    });
   });
 
   describe("imgix", () => {
