@@ -1,3 +1,22 @@
+# v1.1.0 (Wed Nov 19 2025)
+
+#### 🚀  Enhancement
+
+- feat: add yarn check github action [#23](https://github.com/artsy/img/pull/23) ([@mc-jones](https://github.com/mc-jones))
+
+#### 🏠  Internal
+
+- build(deps): bump @babel/traverse from 7.20.5 to 7.23.2 [#18](https://github.com/artsy/img/pull/18) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- build(deps): bump semver from 6.3.0 to 6.3.1 [#17](https://github.com/artsy/img/pull/17) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- build(deps): bump json5 from 2.2.1 to 2.2.3 [#16](https://github.com/artsy/img/pull/16) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Matt Jones ([@mc-jones](https://github.com/mc-jones))
+
+---
+
 # v1.0.3 (Tue Dec 20 2022)
 
 #### 🐛  Bug Fix
