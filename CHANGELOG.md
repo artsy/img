@@ -1,3 +1,15 @@
+# v1.1.1 (Fri Feb 06 2026)
+
+#### 🐛  Bug Fix
+
+- feat: add triggers to conventional commits check [#25](https://github.com/artsy/img/pull/25) ([@mc-jones](https://github.com/mc-jones))
+
+#### Authors: 1
+
+- Matt Jones ([@mc-jones](https://github.com/mc-jones))
+
+---
+
 # v1.1.0 (Wed Nov 19 2025)
 
 #### 🚀  Enhancement
