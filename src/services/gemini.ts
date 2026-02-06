@@ -10,8 +10,8 @@ export type Gemini = {
 };
 
 export const gemini = (config: Gemini): ResizeExec => {
-  return (mode, src, { width, height, quality = DEFAULT_IMG_QUALITY }) => {
-    if (!validateResizeOptions(mode, { width, height })) return src;
+  return (mode, src, { width, height, quality = DEFAULT_IMG_QUALITY, cachePolicy }) => {
+    if (!validateResizeOptions(mode, { width, height, cachePolicy})) return src;
 
     let resizeTo: "width" | "height" | "fit" | "fill";
 
@@ -42,6 +42,7 @@ export const gemini = (config: Gemini): ResizeExec => {
       src,
       width,
       quality,
+      cache_policy: cachePolicy,
     };
 
     const query = stringify(params);
