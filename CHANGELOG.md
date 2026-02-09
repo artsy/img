@@ -1,3 +1,15 @@
+# v1.1.2 (Mon Feb 09 2026)
+
+#### 🐛  Bug Fix
+
+- feat: add cache policy param to passthrough to gemini [#26](https://github.com/artsy/img/pull/26) ([@brainbicycle](https://github.com/brainbicycle))
+
+#### Authors: 1
+
+- Brian Beckerle ([@brainbicycle](https://github.com/brainbicycle))
+
+---
+
 # v1.1.1 (Fri Feb 06 2026)
 
 #### 🐛  Bug Fix
