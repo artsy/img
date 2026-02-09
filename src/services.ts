@@ -12,6 +12,7 @@ export type ResizeOptions = {
   width?: number;
   height?: number;
   quality?: number;
+  cachePolicy?: string;
 };
 
 export type ServiceConfigurations = {
@@ -30,7 +31,7 @@ export type ImageService = { exec: ResizeExec };
 
 export const validateResizeOptions = (
   mode: ResizeMode,
-  { width, height }: ResizeOptions
+  { width, height, cachePolicy }: ResizeOptions
 ) => {
   if (mode === "crop" && (!width || !height)) {
     console.warn("`crop`requires both `width` and `height`");
