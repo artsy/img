@@ -1,3 +1,15 @@
+# v1.1.3 (Tue Jul 07 2026)
+
+#### 🐛  Bug Fix
+
+- chore: add link-pr-to-notion workflow [#27](https://github.com/artsy/img/pull/27) ([@rabidpaul](https://github.com/rabidpaul))
+
+#### Authors: 1
+
+- Paul Sanders ([@rabidpaul](https://github.com/rabidpaul))
+
+---
+
 # v1.1.2 (Mon Feb 09 2026)
 
 #### 🐛  Bug Fix
